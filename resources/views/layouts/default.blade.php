@@ -5,6 +5,8 @@
 </head>
 <body>
         @yield('content')
-    </div>
 </body>
+<footer>
+    @yield('footer')
+</footer>
 </html>

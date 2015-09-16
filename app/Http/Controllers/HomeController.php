@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace blog\Http\Controllers;
 
+use blog\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use blog\Http\Requests;
+use blog\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function guardarUsuario()
+    {
+        /*$user = User::find(1);
+        $user->email = 'anthony@ejemplo.com';
+        $user->save();*/
+        $user = User::create(['name' => 'Anthony', 'email' => 'anthony@ejemplo.com']);
+        return $user;
     }
 
     /**
