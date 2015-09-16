@@ -11,7 +11,12 @@
 |
 */
 
+/*nombrar a las rutas*/
+
 Route::get('/', 'HomeController@index');
 
-Route::get('users', 'HomeController@guardarUsuario');
+Route::get('posts/{id}', [
+    'uses' => 'PostsController@show',
+    'as'   => 'post_show_path'
+]);
 

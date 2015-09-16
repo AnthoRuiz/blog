@@ -22,8 +22,8 @@ $factory->define(blog\User::class, function (Faker\Generator $faker) {
 
 $factory->define(blog\Post::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->name,
-        'user_id' => $faker->email,
+        'title' => $faker->sentence(),
+        'body' => $faker->paragraph(),
 
     ];
 });

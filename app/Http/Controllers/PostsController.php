@@ -3,33 +3,18 @@
 namespace blog\Http\Controllers;
 
 use blog\Post;
-use blog\User;
 use Illuminate\Http\Request;
 
 use blog\Http\Requests;
 use blog\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
-    {
-        $posts = Post::with('user')->get();
-        return view('home', ['posts' => $posts]);
-    }
-
-    /*public function guardarUsuario()
-    {
-        $user = User::find(1);
-        $user->email = 'anthony@ejemplo.com';
-        $user->save();
-        $user = User::create(['name' => 'Anthony', 'email' => 'anthony@ejemplo.com']);
-        return $user;
-    }*/
 
     /**
      * Show the form for creating a new resource.
@@ -60,7 +45,9 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('post', ['post' => $post]);
     }
 
     /**

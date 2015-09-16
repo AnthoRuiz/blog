@@ -1,12 +1,11 @@
 <html>
 <head>
     <title>Blog Jaka</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
 <body>
+    <div class="container">
         @yield('content')
+    </div>
 </body>
-<footer>
-    @yield('footer')
-</footer>
 </html>
