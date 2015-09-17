@@ -6,6 +6,7 @@
 <body>
     <div class="container">
         @if($currentUser)
+
             Hola {{ $currentUser->name }},
             <a class="btn btn-primary" href="{{ route('auth_destroy_path') }}">Salir</a>
         @else

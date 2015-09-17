@@ -2,13 +2,14 @@
 
 namespace blog\Http\Controllers;
 
+use blog\User;
 use Illuminate\Http\Request;
 
 use blog\Http\Requests;
-use blog\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('auth');
+        return view('register');
     }
 
     /**
@@ -38,22 +39,31 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+        $postData = $request->all();
+        $rules = [
+            'email' => 'required|email|unique:users',
+            'password_r' => 'required|min:8',
+            'password' => 'required|min:8|same:password_r',
+        ];
+        $validator = Validator::make($postData,$rules);
 
+        if($validator->fails())
+        {
+            return redirect()->route('register_show_path')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        else
+        {
 
-       if (!Auth::attempt($request->only(['email', 'password'])))
-       {
-           return redirect()->route('auth_show_path')->withErrors('no encontramos al usuario');
-       }
-       else
-       {
-           return redirect()->route('home_path');
-       }
+            $user = new User;
+            $user->name    = $postData['name'];
+            $user->email   = $postData['email'];
+            $user->password =bcrypt($postData['password']);
+            $user->save();
+        }
+        return redirect()->route('auth_show_path')->withErrors('Usuario Creado');
     }
-
     /**
      * Display the specified resource.
      *
@@ -94,10 +104,8 @@ class AuthController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        auth()->logout();
-
-        return redirect()->route('auth_show_path');
+        //
     }
 }

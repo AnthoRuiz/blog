@@ -2,17 +2,7 @@
 
 @section('content')
     <h1>Iniciar Sesión</h1>
-
-    @if($errors->has())
-        <div class="alert alert-danger">
-            <ul class="list-unstyled">
-            @foreach($errors->all() as $error)
-                   <li> {{$error}} </li>
-            @endforeach
-            </ul>
-        </div>
-    @endif
-
+    @include('partials.errors')
     <form role="form" action="{{route('auth_store_path')}}" method="post">
         {{ csrf_field() }}
         <div class="form-group">
@@ -25,10 +15,8 @@
             <input type="password" class="form-control" name="password"
                    placeholder="Introduce tu Contraseña">
         </div>
-        <div class="checkbox">
-            <label><input type="checkbox">Recuerdame</label>
-        </div>
 
         <button type="submit" class="btn btn-primary">Entrar</button>
+        <a class="btn btn-primary" href="{{ route('register_show_path')}}" >registrarse</a>
     </form>
 @stop
